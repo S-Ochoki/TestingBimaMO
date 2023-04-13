@@ -4,7 +4,7 @@ site = "demo.bima-mo.com"
 
 url = "https://{}/token".format(site)
 
-payload = 'username=dm%40salmonbusinesssolutions.com&password=Company1'
+payload = 'username=?&password=?'
 headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
 token_response = requests.request("POST", url, headers=headers, data=payload)
