@@ -1,10 +1,12 @@
+import time
+
 import requests
 
 site = "demo.bima-mo.com"
 
 url = "https://{}/token".format(site)
 
-payload = 'username=dm%40salmonbusinesssolutions.com&password=Company1'
+payload = 'username=?&password=?'
 headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
 token_response = requests.request("POST", url, headers=headers, data=payload)
@@ -24,6 +26,8 @@ product_response = requests.request("GET", product_url, headers=headers, data=pa
 product_data = product_response.json()
 print(product_data["description"])
 
+time.sleep(3)
+
 # Policy Type Tests
 policy_id = 1120
 policy_type_url = "https://{}/policy/type/{}".format(site, policy_id)
@@ -31,12 +35,16 @@ policy_type_response = requests.request("GET", policy_type_url, headers=headers,
 policy_type_data = policy_type_response.json()
 print(policy_type_data["policyTypeDescription"])
 
+time.sleep(3)
+
 # Codeset Tests
 codeset = "Benefit Type"
 codeset_url = "https://{}/codesets/{}".format(site, codeset)
 codeset_response = requests.request("GET", codeset_url, headers=headers, data=payload)
 codeset_data = codeset_response.json()
 print("number of codeset values:{}".format(codeset_data["noOfCodeSetValues"]))
+
+time.sleep(3)
 
 print("--------------------------------------------")
 
@@ -53,9 +61,14 @@ for entity in list_of_entities:
     entity_data = entity_response.json()
     print("{}".format(entity_data["name"]))
 
+    time.sleep(10)
+
     # Policy Tests
     policy_response = requests.request("GET", policy_url, headers=headers, data=payload)
+    print(policy_response)
     policy_data = policy_response.json()
+
+    time.sleep(10)
 
     if not policy_data["benefits"] is None:
         for benefit in policy_data["benefits"]:
@@ -65,6 +78,8 @@ for entity in list_of_entities:
     claims_response = requests.request("GET", claims_url, headers=headers, data=payload)
     claims_data = claims_response.json()
     print("-{}".format("number of claims:{}".format(claims_data["noOfClaims"])))
+
+    time.sleep(10)
 
 
 
